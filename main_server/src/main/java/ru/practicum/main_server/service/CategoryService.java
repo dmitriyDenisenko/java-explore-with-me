@@ -49,7 +49,7 @@ public class CategoryService {
     public void deleteCategory(Long catId) {
         Category category = categoryRepository.findById(catId)
                 .orElseThrow(() -> new ObjectNotFoundException("Category not found"));
-        categoryRepository.delete(category);
+        categoryRepository.deleteById(category.getId());
     }
 
     @Transactional

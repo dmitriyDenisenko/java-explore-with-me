@@ -42,7 +42,7 @@ public class CategoryAdminController {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Map<String, String>> handleIncorrectParameterException(ObjectNotFoundException e) {
+    public ResponseEntity<Map<String, String>> handleFindException(ObjectNotFoundException e) {
         log.warn(e.getMessage());
         Map<String, String> resp = new HashMap<>();
         resp.put("error", e.getMessage());
