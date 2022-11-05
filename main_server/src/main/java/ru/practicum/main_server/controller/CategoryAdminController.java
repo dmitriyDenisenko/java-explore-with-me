@@ -1,16 +1,11 @@
 package ru.practicum.main_server.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.main_server.dto.CategoryDto;
 import ru.practicum.main_server.dto.NewCategoryDto;
-import ru.practicum.main_server.exception.ObjectNotFoundException;
 import ru.practicum.main_server.service.CategoryService;
 
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/admin/categories")
