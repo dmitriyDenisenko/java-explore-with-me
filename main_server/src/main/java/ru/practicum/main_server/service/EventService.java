@@ -289,6 +289,7 @@ public class EventService {
                 new ObjectNotFoundException("event with id = " + eventId + " not found"));
     }
 
+    @Transactional
     public EventShortDto setConfirmedRequestsAndViewsEventShortDto(EventShortDto eventShortDto) {
         int confirmedRequests = participationRepository
                 .countByEventIdAndStatus(eventShortDto.getId(), StatusRequest.CONFIRMED);
@@ -297,6 +298,7 @@ public class EventService {
         return eventShortDto;
     }
 
+    @Transactional
     public EventFullDto setConfirmedRequestsAndViewsEventFullDto(EventFullDto eventFullDto) {
         int confirmedRequests = participationRepository
                 .countByEventIdAndStatus(eventFullDto.getId(), StatusRequest.CONFIRMED);
@@ -321,6 +323,7 @@ public class EventService {
         return 0;
     }
 
+    @Transactional
     public void sentHitStat(HttpServletRequest request) {
         log.info("request URL {}", request.getRequestURI());
         EndpointHit endpointHit = EndpointHit.builder()

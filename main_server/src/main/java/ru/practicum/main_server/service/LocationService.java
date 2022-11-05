@@ -14,6 +14,7 @@ public class LocationService {
         this.locationRepository = locationRepository;
     }
 
+    @Transactional
     public Location save(Location location) {
         return locationRepository.save(location);
     }
