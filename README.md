@@ -1,3 +1,4 @@
 # java-explore-with-me
 Template repository for ExploreWithMe project.
+
 Pull request - https://github.com/dmitriyDenisenko/java-explore-with-me/pull/1
