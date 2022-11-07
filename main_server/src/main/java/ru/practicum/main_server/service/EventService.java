@@ -18,10 +18,7 @@ import ru.practicum.main_server.repository.ParticipationRepository;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -307,7 +304,7 @@ public class EventService {
         return eventFullDto;
     }
 
-    public int getViews(long eventId) {
+    private Integer getViews(long eventId) {
         ResponseEntity<Object> responseEntity = hitClient.getStat(
                 LocalDateTime.of(2020, 9, 1, 0, 0),
                 LocalDateTime.now(),
@@ -315,9 +312,8 @@ public class EventService {
                 false);
 
         log.info("responseEntity {}", responseEntity.getBody());
-        if (responseEntity.getBody().equals("")) {
-            Integer hits = (Integer) ((LinkedHashMap) responseEntity.getBody()).get("hits");
-            return hits;
+        if (Objects.equals(responseEntity.getBody(), "")) {
+            return ((Map<String, Integer>) responseEntity.getBody()).get("hits");
         }
 
         return 0;
