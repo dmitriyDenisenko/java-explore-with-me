@@ -5,5 +5,4 @@ The ExploreWithMe app gives you the opportunity to share information about inter
 
 Stats-server modules - statistics service - stores the number of views and allows you to make various samples to analyze the operation of the application ewm.service -the main service of the application - contains everything necessary for the operation of the product.
 
-
 Pull request - https://github.com/dmitriyDenisenko/java-explore-with-me/pull/1
