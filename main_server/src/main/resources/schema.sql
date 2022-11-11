@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS locations (
     lat DECIMAL NOT NULL,
     lon DECIMAL NOT NULL,
     radius DECIMAL,
-    UNIQUE (lat, lon)
+    UNIQUE (lat, lon),
     CONSTRAINT pk_location PRIMARY KEY (id)
 );
 
