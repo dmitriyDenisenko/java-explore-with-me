@@ -28,7 +28,7 @@ services:
 
   ewm-service:
     build: ./main_server
-    container_name: main_server
+    container_name: main-server
     restart: always
     ports:
       - "8080:8080"
