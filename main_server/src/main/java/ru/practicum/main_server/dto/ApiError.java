@@ -13,7 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ApiError {
-    private List<Error> errors;
+
+    private List<String> errors;
 
     private String message;
 

@@ -1,17 +1,18 @@
-package ru.practicum.main_server.dto;
+package ru.practicum.main_server.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewCategoryDto {
-    @NotBlank
-    private String name;
+public class ViewStats {
+    private String app;
+
+    private String uri;
+
+    private int hits;
 }
