@@ -21,14 +21,14 @@ public class EventPublicController {
 
     @GetMapping()
     List<EventShortDto> getEvents(@RequestParam(required = false) String text,
-                                  @RequestParam List<Long> categories,
-                                  @RequestParam Boolean paid,
-                                  @RequestParam String rangeStart,
-                                  @RequestParam String rangeEnd,
-                                  @RequestParam Boolean onlyAvailable,
-                                  @RequestParam String sort,
-                                  @RequestParam(defaultValue = "0") int from,
-                                  @RequestParam(defaultValue = "10") int size,
+                                  @RequestParam(required = false) List<Long> categories,
+                                  @RequestParam(required = false) Boolean paid,
+                                  @RequestParam(required = false) String rangeStart,
+                                  @RequestParam(required = false) String rangeEnd,
+                                  @RequestParam(defaultValue = "true", required = false) Boolean onlyAvailable,
+                                  @RequestParam(required = false) String sort,
+                                  @RequestParam(defaultValue = "0", required = false) int from,
+                                  @RequestParam(defaultValue = "10", required = false) int size,
                                   HttpServletRequest request) {
         log.info("get events public");
         eventService.sentHitStat(request);

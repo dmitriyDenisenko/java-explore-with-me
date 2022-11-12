@@ -49,7 +49,7 @@ public class EventService {
 
         LocalDateTime end;
         if (rangeEnd == null) {
-            end = LocalDateTime.MAX;
+            end = LocalDateTime.of(8888, 8, 8, 8, 00);;
         } else {
             end = LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
@@ -58,7 +58,7 @@ public class EventService {
                 PageRequest.of(from / size, size))
                 .stream()
                 .collect(Collectors.toList());
-        if (sort.equals("EVENT_DATE")) {
+        if ("EVENT_DATE".equals(sort)) {
             events = events.stream()
                     .sorted(Comparator.comparing(Event::getEventDate))
                     .collect(Collectors.toList());
@@ -69,7 +69,7 @@ public class EventService {
                 .map(EventMapper::toEventShortDto)
                 .map(this::setConfirmedRequestsAndViewsEventShortDto)
                 .collect(Collectors.toList());
-        if (sort.equals("VIEWS")) {
+        if ("VIEWS".equals(sort)) {
             eventShortDtos = eventShortDtos.stream()
                     .sorted(Comparator.comparing(EventShortDto::getViews))
                     .collect(Collectors.toList());
@@ -191,24 +191,26 @@ public class EventService {
     public List<EventFullDto> getAdminEvents(List<Long> users, List<State> states, List<Long> categories,
                                              String rangeStart, String rangeEnd, int from, int size) {
         LocalDateTime start;
-        if (rangeStart == null) {
+        if (rangeStart == null ) {
             start = LocalDateTime.now();
         } else {
             start = LocalDateTime.parse(rangeStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
         LocalDateTime end;
         if (rangeEnd == null) {
-            end = LocalDateTime.MAX;
+            end =  LocalDateTime.of(8888, 8, 8, 8, 00);
         } else {
             end = LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
-
+        if(end.isBefore(start)) {
+            throw new WrongRequestException("End before start!!!");
+        }
         return eventRepository.searchEventsByAdmin(users, states, categories, start, end,
-                PageRequest.of(from / size, size))
-                .stream()
-                .map(EventMapper::toEventFullDto)
-                .map(this::setConfirmedRequestsAndViewsEventFullDto)
-                .collect(Collectors.toList());
+                            PageRequest.of(from / size, size))
+                    .stream()
+                    .map(EventMapper::toEventFullDto)
+                    .map(this::setConfirmedRequestsAndViewsEventFullDto)
+                    .collect(Collectors.toList());
     }
 
     @Transactional
