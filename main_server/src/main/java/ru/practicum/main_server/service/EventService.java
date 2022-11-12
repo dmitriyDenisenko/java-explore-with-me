@@ -51,13 +51,14 @@ public class EventService {
 
         LocalDateTime end;
         if (rangeEnd == null) {
-            end = LocalDateTime.of(8888, 8, 8, 8, 00);;
+            end = LocalDateTime.of(8888, 8, 8, 8, 00);
+            ;
         } else {
             end = LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
 
         List<Event> events = eventRepository.searchEvents(text, categories, paid, start, end,
-                PageRequest.of(from / size, size))
+                        PageRequest.of(from / size, size))
                 .stream()
                 .collect(Collectors.toList());
         if ("EVENT_DATE".equals(sort)) {
@@ -148,8 +149,8 @@ public class EventService {
     public EventFullDto createEvent(Long userId, NewEventDto newEventDto) {
         Location location = newEventDto.getLocation();
         log.info("before location find");
-        Optional<Location>  locationFromBd = locationRepository.findByLatAndLon(location.getLat(), location.getLon());
-        if(locationFromBd.isEmpty()){
+        Optional<Location> locationFromBd = locationRepository.findByLatAndLon(location.getLat(), location.getLon());
+        if (locationFromBd.isEmpty()) {
             locationRepository.save(location);
             log.info("generate new location");
         } else {
@@ -198,26 +199,26 @@ public class EventService {
     public List<EventFullDto> getAdminEvents(List<Long> users, List<State> states, List<Long> categories,
                                              String rangeStart, String rangeEnd, int from, int size) {
         LocalDateTime start;
-        if (rangeStart == null ) {
+        if (rangeStart == null) {
             start = LocalDateTime.now();
         } else {
             start = LocalDateTime.parse(rangeStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
         LocalDateTime end;
         if (rangeEnd == null) {
-            end =  LocalDateTime.of(8888, 8, 8, 8, 00);
+            end = LocalDateTime.of(8888, 8, 8, 8, 00);
         } else {
             end = LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         }
-        if(end.isBefore(start)) {
+        if (end.isBefore(start)) {
             throw new WrongRequestException("End before start!!!");
         }
         return eventRepository.searchEventsByAdmin(users, states, categories, start, end,
-                            PageRequest.of(from / size, size))
-                    .stream()
-                    .map(EventMapper::toEventFullDto)
-                    .map(this::setConfirmedRequestsAndViewsEventFullDto)
-                    .collect(Collectors.toList());
+                        PageRequest.of(from / size, size))
+                .stream()
+                .map(EventMapper::toEventFullDto)
+                .map(this::setConfirmedRequestsAndViewsEventFullDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional
@@ -343,8 +344,8 @@ public class EventService {
     public List<EventShortDto> getEventsByLocation(long locId, String sort, int from, int size) {
         Location location = locationRepository.findById(locId).orElseThrow(() ->
                 new ObjectNotFoundException("location with id = " + locId + " not found"));
-        List<Event> events = eventRepository.searchEventsByLocation(location.getLat(), location.getLon(), location.getRadius(),
-                        PageRequest.of(from / size, size))
+        List<Event> events = eventRepository.searchEventsByLocation(location.getLat(), location.getLon(),
+                        location.getRadius(), PageRequest.of(from / size, size))
                 .stream()
                 .collect(Collectors.toList());
         if (sort.equals("EVENT_DATE")) {

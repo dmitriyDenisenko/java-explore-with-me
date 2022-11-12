@@ -43,7 +43,7 @@ public class ExceptionHandlers {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiError requestErrors(IllegalArgumentException e){
+    public ApiError requestErrors(IllegalArgumentException e) {
         return ApiError.builder()
                 .errors(Arrays.stream(e.getStackTrace()).map(error -> error.toString()).collect(Collectors.toList()))
                 .status(String.valueOf(HttpStatus.BAD_REQUEST))
@@ -55,7 +55,7 @@ public class ExceptionHandlers {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ApiError validHandle(MethodArgumentNotValidException e){
+    public ApiError validHandle(MethodArgumentNotValidException e) {
         return ApiError.builder()
                 .errors(Arrays.stream(e.getStackTrace()).map(error -> error.toString()).collect(Collectors.toList()))
                 .status(String.valueOf(HttpStatus.BAD_REQUEST))
